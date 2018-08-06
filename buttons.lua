@@ -8,7 +8,7 @@ local LSM = LibStub and LibStub:GetLibrary("LibSharedMedia-3.0", true)
 local FONT = LSM:Fetch(LSM.MediaType.FONT, "Roboto Bold Condensed")
 local TEXTURE = LSM:Fetch(LSM.MediaType.STATUSBAR, "Flat")
 
-local DEFAULT_SIZE = 280
+local DEFAULT_BUTTON_SIZE = 24
 local DEFAULT_BUTTON_POSITION = "Bottom"
 local DEFAULT_MOUSEOVER_BUTTON_FRAME = true
 
@@ -45,6 +45,7 @@ hideTextures['Interface\\Minimap\\UI-Minimap-Background'] = true
 
 -- Create a frame for storing minimap buttons
 Minimap.buttonFrame = CreateFrame("frame", nil, Minimap)
+Minimap.buttonFrame:SetHeight(DEFAULT_BUTTON_SIZE + 10)
 Minimap.buttonFrame:SetPoint("TOPLEFT", Minimap.background, "BOTTOMLEFT", 2, -4)
 Minimap.buttonFrame:SetPoint("BOTTOMRIGHT", Minimap.background, "BOTTOMRIGHT", 0, -28)
 Minimap.buttonFrame:RegisterEvent("PLAYER_ENTERING_WORLD")
@@ -129,6 +130,8 @@ local function collectMinimapButtons()
   for _, v in pairs(d) do table.insert(c,v) end
   table.insert(c, _G["DugisOnOffButton"])  -- Yay special case
 
+  local button_size = DEFAULT_BUTTON_SIZE
+
   local last = nil
   for i = 1, #c do
     local f = c[i]
@@ -142,7 +145,7 @@ local function collectMinimapButtons()
       not ignoredFrames[n]
     ) then
       if not f.skinned then
-        f:SetSize(24, 24)
+        f:SetSize(button_size, button_size)
         f:SetParent(Minimap.buttonFrame)
 
         local r = {f:GetRegions()}

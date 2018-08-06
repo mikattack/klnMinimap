@@ -6,6 +6,9 @@ local _, ns = ...
 local LSM = LibStub and LibStub:GetLibrary("LibSharedMedia-3.0", true)
 local FONT = LSM:Fetch(LSM.MediaType.FONT, "Roboto Bold Condensed")
 
+local DEFAULT_SIZE = 280
+local DEFAULT_BUTTON_SIZE = 24
+
 
 -- Raid difficulty
 local rd = CreateFrame("Frame", nil, Minimap)
@@ -177,14 +180,45 @@ Minimap:SetScript('OnMouseUp', function (self, button)
 end)
 
 
---[[
 -- Quest log
-ObjectiveTrackerFrame:SetSize(260, 500)
-ObjectiveTrackerFrame:ClearAllPoints()
-ObjectiveTrackerFrame:SetPoint("TOPRIGHT", UIParent, "BOTTOMRIGHT", 0, -10)
+--[[
+  This is somewhat ugly. I don't understand how to correctly
+  call hooksecurefunc for SetPoint against the tracker.
+  Furthermore, I don't understand how it's positioned, and
+  what does it (though it seems to happen many times)
 
--- Give quest tracker a background so we can see what we're doing
-ObjectiveTrackerFrame.bg = ObjectiveTrackerFrame:CreateTexture("bg", 'BORDER')
-ObjectiveTrackerFrame.bg:SetAllPoints(ObjectiveTrackerFrame)
-ObjectiveTrackerFrame.bg:SetColorTexture(0.7, 0.3, 0.3, 0.5)
+  However, based on a forum post, I can get close. This
+  solution will ALWAYS assume you want the tracker on the
+  right of the screen and that your minimap will be below it.
+
+  If we really wanna make this configurable, we'd have to
+  take the approach Zork does and just directly reposition it
+  via drag-n-drop. Flexible, but not programmatic.
+
+  Relevant forum link:
+    https://us.battle.net/forums/en/wow/topic/15141304174#2
 --]]
+local questlog_positioner = CreateFrame("Frame")
+questlog_positioner:RegisterEvent("PLAYER_LOGIN")
+questlog_positioner:SetScript("OnEvent",function(self, event, addon)
+  if IsAddOnLoaded("Blizzard_ObjectiveTracker") then
+    local tracker = ObjectiveTrackerFrame
+    local anchor  = "TOPRIGHT"
+    local ox = -10
+    local oy = -10
+
+    tracker:ClearAllPoints()
+    tracker:SetPoint(anchor, Minimap, attach, ox, oy)
+    
+    hooksecurefunc(tracker, "SetPoint", function(self, a, rt, x, y)
+      if a ~= anchor and x ~= ox and y ~= oy then
+        --print(a, rt, x, y)
+        self:SetPoint(anchor, UIParent, ox, -DEFAULT_SIZE + -DEFAULT_BUTTON_SIZE + oy)
+      end
+    end)
+
+    self:UnregisterEvent("ADDON_LOADED")
+  else
+    self:RegisterEvent("ADDON_LOADED")
+  end
+end)

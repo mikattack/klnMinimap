@@ -11,4 +11,5 @@
 buttons.lua
 blizzard.lua
 xp.lua
+orderhall.lua
 minimap.lua

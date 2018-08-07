@@ -6,6 +6,7 @@ local _, ns = ...
 local LSM = LibStub and LibStub:GetLibrary("LibSharedMedia-3.0", true)
 
 local FONT = LSM:Fetch(LSM.MediaType.FONT, "Roboto Bold Condensed")
+local TEXTURE = LSM:Fetch(LSM.MediaType.STATUSBAR, "Flat")
 
 local DEFAULT_SIZE = 280
 local DEFAULT_BUTTON_POSITION = "Bottom"
@@ -13,11 +14,11 @@ local DEFAULT_BUTTON_POSITION = "Bottom"
 
 -- Override some defaults
 Minimap:EnableMouse(true)
-Minimap:SetMaskTexture("Interface\\Addons\\bdMinimap\\rectangle.tga")
+Minimap:SetMaskTexture("Interface\\Addons\\klnMinimap\\rectangle.tga")
 Minimap:SetArchBlobRingScalar(0);
 Minimap:SetQuestBlobRingScalar(0);
 Minimap:ClearAllPoints()
-Minimap:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -10, -2)
+Minimap:SetPoint("TOPRIGHT", UIParent, "TOPRIGHT", -10, 0)
 
 -- Attempt to prevent minimap shape overrides from elsewhere
 function GetMinimapShape() return "SQUARE" end
@@ -49,13 +50,13 @@ function Minimap:Update()
   local buttons = DEFAULT_BUTTON_POSITION
 
   if shape == "Rectangle" then
-    Minimap:SetMaskTexture("Interface\\Addons\\bdMinimap\\rectangle.tga")
+    Minimap:SetMaskTexture("Interface\\Addons\\klnMinimap\\rectangle.tga")
     Minimap.background:SetSize(size, size * .75)
     Minimap:SetSize(size, size)
     Minimap:SetHitRectInsets(0, 0, size / 8, size / 8)
-    Minimap:SetClampRectInsets(0, 0, -size / 4, -size / 4)
+    Minimap:SetClampRectInsets(0, 0, -size / 4, size / 4)
   else
-    Minimap:SetMaskTexture(bdCore.media.flat)
+    Minimap:SetMaskTexture(TEXTURE)
     Minimap.background:SetSize(size, size)
     Minimap:SetSize(size, size)
     Minimap:SetHitRectInsets(0, 0, 0, 0)

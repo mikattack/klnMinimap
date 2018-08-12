@@ -75,7 +75,9 @@ klnConfigButton:SetScript("OnLeave", function(self)
   self.text:SetTextColor(.4, .6, 1) 
   GameTooltip:Hide()
 end)
---klnConfigButton:SetScript("OnClick", function() klnCore:toggleConfig() end)
+klnConfigButton:SetScript("OnClick", function()
+  kln.events:Trigger("show_configuration")
+end)
 
 
 -- Show/hide button container on mouseover

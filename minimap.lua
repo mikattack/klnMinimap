@@ -89,8 +89,8 @@ function Minimap:Update()
     end
   end
 end
-klnCore.events:Trigger("reconfigure", function() Minimap:Update() end)
-klnCore.events:Trigger("minimap_reconfigure", function() Minimap:Update() end)
+kln.events:Trigger("reconfigure", function() Minimap:Update() end)
+kln.events:Trigger("minimap_reconfigure", function() Minimap:Update() end)
 
 
 -- Finally, update the minimap

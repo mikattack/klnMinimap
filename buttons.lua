@@ -57,7 +57,7 @@ Minimap.buttonFrame:RegisterEvent("UPDATE_FACTION")
 
 
 -- Create a minimap button for kln-related configuration
-local klnConfigButton = CreateFrame("button","klnCore_config_button", Minimap.buttonFrame)
+local klnConfigButton = CreateFrame("button","kln_config_button", Minimap.buttonFrame)
 klnConfigButton.text = klnConfigButton:CreateFontString(nil, "OVERLAY")
 klnConfigButton.text:SetFont(FONT, 14)
 klnConfigButton.text:SetTextColor(.4, .6, 1)
@@ -122,8 +122,8 @@ local function collectMinimapButtons()
   local buttons = DEFAULT_BUTTON_POSITION
   if buttons == "Disable" then return end
 
-  -- Stick our "button that does nothing for now" into the collection
-  ignoredFrames["klnCore_config_button"] = nil
+  -- Stick our "open the configuration" button into the collection
+  ignoredFrames["kln_config_button"] = nil
   klnConfigButton:Show()
   
   local c = {Minimap.buttonFrame:GetChildren()}
@@ -172,7 +172,7 @@ local function collectMinimapButtons()
         f.klnBackground = f.klnBackground or CreateFrame("frame",nil,f)
         f.klnBackground:SetAllPoints(f)
         f.klnBackground:SetFrameStrata("BACKGROUND")
-        klnCore.frames.setBackdrop(f.klnBackground)
+        kln.frames.setBackdrop(f.klnBackground)
         f:SetHitRectInsets(0, 0, 0, 0)
 
         local oldscript = 

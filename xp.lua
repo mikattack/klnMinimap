@@ -14,7 +14,7 @@ bar:SetPoint("TOPLEFT", Minimap.background, "BOTTOMLEFT", 2, 0)
 bar:SetPoint("BOTTOMRIGHT", Minimap.background, "BOTTOMRIGHT", -2, -20)
 bar:SetFrameStrata("LOW")
 bar:SetFrameLevel(6)
-klnCore.frames.setBackdrop(bar)
+kln.frames.setBackdrop(bar)
 
 -- Override 1px "border" because big'n'chunky looks good here
 bar.background:SetPoint("TOPLEFT", bar, "TOPLEFT", -2, 2)
@@ -80,7 +80,7 @@ bar:SetScript("OnEvent", function(self,event)
     bar.xp:SetStatusBarColor(.4, .1, 0.6, 1)
     bar.xp:SetValue(xp)
     if rxp then
-      bar.xp.text:SetText(klnCore.si(xp).." / "..klnCore.si(mxp).." - "..floor((xp / mxp)*1000)/10 .."%" .. " (+"..klnCore.si(rxp)..")")
+      bar.xp.text:SetText(kln.si(xp).." / "..kln.si(mxp).." - "..floor((xp / mxp)*1000)/10 .."%" .. " (+"..kln.si(rxp)..")")
       bar.xp:SetMinMaxValues(0,mxp)
       bar.rxp:SetMinMaxValues(0, mxp)
       bar.xp:SetStatusBarColor(.2, .4, 0.8, 1)
@@ -92,7 +92,7 @@ bar:SetScript("OnEvent", function(self,event)
       end
       bar.rxp:Show()
     elseif xp > 0 and mxp > 0 then
-      bar.xp.text:SetText(klnCore.si(xp).." / "..klnCore.si(mxp).." - "..floor((xp/mxp)*1000)/10 .."%")
+      bar.xp.text:SetText(kln.si(xp).." / "..kln.si(mxp).." - "..floor((xp/mxp)*1000)/10 .."%")
       bar.rxp:Hide()
     end
   end

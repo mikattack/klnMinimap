@@ -1,11 +1,11 @@
 ## Interface: 80000
 ## Title: |cFF7F2A90kln|r|Minimap
-## Notes: Minimap for Kellen.
+## Notes: Minimap for the KellenUI.
 ## Author: Kellen
 ## X-Copyright: Copyright (c) 2018 Kellen.  All rights reserved.
 ## X-Website: https://github.com/mikattack/klnMinimap
 
-## Dependencies: klnCore
+## Dependencies: kln
 ## OptionalDeps: kMedia
 
 buttons.lua

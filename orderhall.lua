@@ -12,6 +12,7 @@ local function onMouseOver(self)
 end
 
 local function onMouseLeave(self)  
+  if not OrderHallCommandBar then return end
   if OrderHallCommandBar:IsMouseOver() then
     UIFrameFadeOut(OrderHallCommandBar, 0.0, 1.0, 1.0)
   else
